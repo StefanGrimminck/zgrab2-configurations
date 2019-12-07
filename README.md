@@ -11,8 +11,8 @@ cat input.txt |  zgrab2 multiple -c all.ini -o output.txt
 
 ### Using port based triggers (as specified [here](https://github.com/zmap/zgrab2#multiple-module-usage)) for scanning
 
-`input.txt` should be structured as follows:
-[ip address], [hostname], [port nummer]
+`input.txt` should be structured as follows where IP or hostname are manditory:
+[IP address], [hostname], [port nummer]
 
 e.g. 
 ``` 
