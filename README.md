@@ -6,7 +6,7 @@ Default input and output files are specified as `input.txt` and `output.txt`. Th
 
 ### Scanning all addresses for all supported protocols
 ``` bash
-./zgrab2 multiple -c all.ini
+cat input.txt |  zgrab2 multiple -c all.ini -o output.txt
 ```
 
 ### Using port based triggers (as specified [here](https://github.com/zmap/zgrab2#multiple-module-usage)) for scanning
@@ -22,5 +22,5 @@ e.g.
 ```
 
 ``` bash
-./zgrab2 multiple -c all_trigger-on-port.ini --trigger
+cat input.txt | zgrab2 multiple -c all_trigger-on-port.ini -o output.txt --trigger
 ```
