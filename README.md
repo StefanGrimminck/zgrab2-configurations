@@ -9,6 +9,11 @@ Default input and output files are specified as `input.txt` and `output.txt`. Th
 cat input.txt |  zgrab2 multiple -c all.ini -o output.txt
 ```
 
+### Scanning using a specific protocol
+``` bash
+cat input.txt |  zgrab2 multiple - c ssh.ini -o output.txt
+```
+
 ### Using port based triggers (as specified [here](https://github.com/zmap/zgrab2#multiple-module-usage)) for scanning
 
 `input.txt` should be structured as follows where IP or hostname are manditory:
