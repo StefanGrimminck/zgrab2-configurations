@@ -16,7 +16,7 @@ cat input.txt |  zgrab2 multiple -c ssh.ini -o output.txt
 
 ### Scanning the whole IPv4 space for indices in open Elasticsearch databases
 ``` bash
-ziterate | zgrab2 multiple -c custom-services/elasticsearch-indices.ini -o output.txt
+zmap -p 9200 | zgrab2 multiple -c custom-services/elasticsearch-indices.ini -o output.txt
 ```
 
 ### Using port based triggers (as specified [here](https://github.com/zmap/zgrab2#multiple-module-usage)) for scanning
