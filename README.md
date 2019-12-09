@@ -14,7 +14,7 @@ cat input.txt |  zgrab2 multiple -c all.ini -o output.txt
 cat input.txt |  zgrab2 multiple -c ssh.ini -o output.txt
 ```
 
-### Scanning the whole IPv4 space for indices in open Elasticsearch databases
+### Scanning the whole IPv4 space for open Elasticsearch databases
 ``` bash
 zmap -p 9200 | zgrab2 multiple -c custom-services/elasticsearch-indices.ini -o output.txt
 ```
