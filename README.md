@@ -36,5 +36,5 @@ e.g.
 ```
 
 ``` bash
-cat input.txt | zgrab2 multiple -c all_trigger-on-port.ini -o output.txt --trigger
+cat input.txt | zgrab2 multiple -c base-configurations/all_trigger-on-port.ini -o output.txt --trigger
 ```
