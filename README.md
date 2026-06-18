@@ -1,75 +1,103 @@
 # ZGrab 2.0 configuration files
 
-A collection of ready-to-run [ZGrab2](https://github.com/zmap/zgrab2)
-configurations for network reconnaissance and exposure research, paired with
-[ZMap](https://github.com/zmap/zmap) for host discovery.
+Configuration files for [ZGrab2](https://github.com/zmap/zgrab2), the
+application-layer scanner from the ZMap project. Each file tells ZGrab2 which
+module to run, on which port, and with which options. This lets you point a
+scan at a specific protocol, product, or exposure without writing the flags by
+hand.
 
-The configs under `service-discovery/` and `vulnerabilities/` are informed by
-traffic actually observed against internet-facing honeypots: the ports,
-endpoints and CVEs here are the ones being probed in the wild right now, not a
-theoretical list.
+The files under `service-discovery/` and `vulnerabilities/` follow what
+internet-facing honeypots actually receive. The ports, endpoints, and CVEs they
+target are ones seen in live scanning traffic, not a theoretical list.
 
 ## Dependencies
-- ZGrab2 https://github.com/zmap/zgrab2
-- ZMap https://github.com/zmap/zmap
+
+- [ZGrab2](https://github.com/zmap/zgrab2) runs the scans in this repository.
+- [ZMap](https://github.com/zmap/zmap) finds hosts that have a given port open.
 
 ## Layout
 
-| Directory | What's in it |
-|-----------|--------------|
-| `base-configurations/` | One template per ZGrab2 protocol module (`http`, `ssh`, `redis`, `mysql`, `mongodb`, ...), plus `all.ini` and `all_trigger-on-port.ini` that bundle them. Start here to build your own. |
-| `service-discovery/` | Fingerprint a specific exposed product: Elasticsearch, Kibana, Docker, Ollama, RabbitMQ, Vault, GlobalProtect, ... |
-| `vulnerabilities/misconfigurations/` | Detect dangerous-by-default exposures: a readable `/.git/config` or `/.env`, an open MongoDB, an exposed Squid cache manager, ... |
-| `vulnerabilities/exploitation/` | Non-destructive CVE **detection** probes (path traversal, source disclosure, vulnerable-endpoint fingerprinting). Each file names its CVE on the first line. |
+- `base-configurations/` holds one file per ZGrab2 module, such as `http`,
+  `ssh`, `redis`, `mysql`, and `mongodb`. `all.ini` and
+  `all_trigger-on-port.ini` bundle every module into one scan. Copy one of
+  these when writing your own config.
+- `service-discovery/` fingerprints a specific product on its usual port, such
+  as Elasticsearch, Docker, Ollama, RabbitMQ, or HashiCorp Vault.
+- `vulnerabilities/misconfigurations/` detects a dangerous default or an
+  exposure, such as a readable `/.git/config`, an open MongoDB, or an exposed
+  Docker daemon.
+- `vulnerabilities/exploitation/` detects a host that is vulnerable to a
+  specific CVE. Each file names its CVE on the first line. These probes only
+  fingerprint the endpoint or read a known indicator. They do not run commands
+  or send a working exploit.
 
-## Examples
-Default input and output files are specified as `input.txt` and `output.txt`. These should be located in the same directory as zgrab or be changed to your custom settings.
+## Usage
 
-### Scanning all addresses for all supported protocols
-``` bash
-cat input.txt |  zgrab2 multiple -c all.ini -o output.txt
+ZGrab2 reads targets on standard input, one per line, and writes JSON results
+to standard output. The examples below use `input.txt` and `output.txt`. Place
+them next to the binary or replace them with your own paths.
+
+Scan a list of hosts with every supported protocol:
+
+```bash
+cat input.txt | zgrab2 multiple -c base-configurations/all.ini -o output.txt
 ```
 
-### Scanning using a specific protocol
-``` bash
-cat input.txt |  zgrab2 multiple -c ssh.ini -o output.txt
+Scan with a single protocol:
+
+```bash
+cat input.txt | zgrab2 multiple -c base-configurations/ssh.ini -o output.txt
 ```
 
-### Scanning the whole IPv4 space for open Elasticsearch databases
-``` bash
+Find open Elasticsearch instances with ZMap, then scan them:
+
+```bash
 zmap -p 9200 | zgrab2 multiple -c vulnerabilities/misconfigurations/elasticsearch-indices.ini -o output.txt
 ```
 
-### Finding exposed Git repositories (one of the highest-volume campaigns we see)
-``` bash
+Find exposed Git repositories:
+
+```bash
 zmap -p 443 | zgrab2 multiple -c vulnerabilities/misconfigurations/git-config-exposure.ini -o output.txt
 ```
 
-### Finding internet-exposed Ollama LLM servers
-``` bash
+Find exposed Ollama servers:
+
+```bash
 zmap -p 11434 | zgrab2 multiple -c service-discovery/ollama.ini -o output.txt
 ```
 
-### Using port based triggers (as specified [here](https://github.com/zmap/zgrab2#multiple-module-usage)) for scanning
+### Port-based triggers
 
-`input.txt` should be structured as follows where IP or hostname are manditory:
-[IP address], [hostname], [port nummer]
+To run a module only against hosts where a matching port is supplied, use the
+trigger form from the
+[ZGrab2 multiple-module documentation](https://github.com/zmap/zgrab2#multiple-module-usage).
+Each input line is `ip, hostname, port`, where the IP or the hostname is
+required:
 
-e.g. 
-``` 
+```
 64.233.160.0, google.nl, 23
 127.0.0.1, , 22
 , bing.nl, 102
 ```
 
-``` bash
+```bash
 cat input.txt | zgrab2 multiple -c base-configurations/all_trigger-on-port.ini -o output.txt --trigger
 ```
 
+## Writing your own config
+
+Copy the matching file from `base-configurations/`, set `name`, `port`, and any
+module options, and save it under the directory that fits its purpose. The
+commented options in each base file list what the module accepts. Run
+`zgrab2 <module> --help` to confirm the current option names before you rely on
+them.
+
 ## Responsible use
-These configurations are for authorised security research, asset inventory and
-defensive monitoring. The `exploitation/` probes are **detection-only**: they
-fingerprint a vulnerable endpoint or read a single known indicator, and never
-execute code or send a weaponised payload. Only scan hosts you own or are
-explicitly permitted to test, and keep ZGrab2's blocklist configured to exclude
-networks you must not touch.
+
+These configurations are for authorised security research, asset inventory, and
+defensive monitoring. The probes under `vulnerabilities/exploitation/` detect a
+vulnerable endpoint or read a single known indicator. They do not execute code
+or send a working exploit. Only scan hosts that you own or have explicit
+permission to test, and keep the ZGrab2 blocklist configured so that networks
+you must not touch are excluded.
