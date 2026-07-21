@@ -43,30 +43,49 @@ Products and exposures, in `service-discovery/` and `vulnerabilities/`:
   Confluence, GitLab, phpMyAdmin, Adminer, Next.js.
 - Databases, caches, and search: MongoDB, Redis, Elasticsearch, CouchDB,
   Couchbase, ClickHouse, memcached, InfluxDB, Solr, Neo4j, Riak, Druid.
+- Additional data, search, and AI services: CockroachDB, CrateDB, QuestDB,
+  Trino, Apache Pinot, YugabyteDB, Meilisearch, Typesense, Qdrant, Milvus,
+  Weaviate, Chroma, Marqo, Vespa, and LocalStack.
 - Containers, orchestration, and secrets: Docker Engine API, Docker Registry,
   Harbor, Kubernetes API server, kubelet, Portainer, Nomad, etcd, Consul,
-  HashiCorp Vault.
+  HashiCorp Vault, Rancher, Argo Workflows, AWX, Dapr, and Coolify.
+- Proxies, storage, and infrastructure management: Caddy, Traefik, Envoy,
+  HAProxy, Kong, SeaweedFS, Proxmox VE, OpenStack Keystone, Webmin, Cockpit,
+  and pgAdmin.
 - CI/CD and developer surfaces: Jenkins, TeamCity, Argo CD, Spring Boot
-  Actuator, Swagger and OpenAPI, GraphQL, Symfony, Laravel.
+  Actuator, Swagger and OpenAPI, GraphQL, Symfony, Laravel, Gitea, Drone,
+  Woodpecker, GoCD, SonarQube, Nexus Repository, Artifactory, and code-server.
 - Monitoring, dashboards, and messaging: Grafana, Prometheus, Kibana, Zabbix,
   Cacti, Netdata, Splunk, Apache Airflow, RabbitMQ, Apache ActiveMQ, NATS,
-  Apache ZooKeeper.
+  Apache ZooKeeper, Alertmanager, Loki, Thanos, VictoriaMetrics, Graylog,
+  Sentry, Jaeger, Zipkin, SigNoz, Graphite, Apache Pulsar, Kafka Connect,
+  Schema Registry, EMQX, and Apache Artemis.
 - Mail, identity, and remote access: Microsoft Exchange, RD Web Access, WinRM,
   Keycloak, Nextcloud and ownCloud.
 - Application servers: Oracle WebLogic, GlassFish, Apache Tomcat, Adobe
-  ColdFusion, GeoServer, Nacos.
+  ColdFusion, GeoServer, Nacos, Jolokia, WildFly, Hawtio, H2, Apache NiFi,
+  Apache Flink, Apache Storm, Apache OFBiz, and Apache Superset.
+- Identity, collaboration, automation, and web applications: authentik, Dex,
+  Authelia, ZITADEL, Teleport, Ory, Mattermost, n8n, Home Assistant, openHAB,
+  NetBox, Rundeck, Directus, Strapi, Ghost, MediaWiki, Moodle, TYPO3,
+  Shopware, Odoo, ERPNext, Umbraco, Metabase, Hasura, and Guacamole.
 - IoT, routers, and cameras: Hikvision, Axis, Realtek, D-Link, TP-Link, DrayTek,
   Dasan GPON, Boa-based routers, QNAP, Technicolor, Google Home.
-- Common exposures: readable `/.git/config` and `/.env`, AWS credentials and SSH
-  private keys, exposed Docker daemons and registries, Spring Actuator `env` and
-  `heapdump`, Apache `server-status` and `server-info`, Go `pprof`, open
-  MongoDB, Redis, memcached, CouchDB and Solr, `phpinfo()`, directory traversal
-  to `/etc/passwd`, Hadoop and YARN, the Squid cache manager.
+- Common exposures: readable Git, Subversion, and Mercurial metadata; `.env`
+  variants; AWS, Azure, Google Cloud, Docker, Kubernetes, and Terraform
+  credentials; public application configuration and database backups; exposed
+  Docker daemons and registries; Spring Actuator `env`, `heapdump`, mappings,
+  configuration, log, thread, audit, and session data; Apache `server-status`
+  and `server-info`; Go `pprof`; open MongoDB, Redis, memcached, CouchDB and
+  Solr; `phpinfo()`; directory traversal to `/etc/passwd`; Hadoop and YARN;
+  the Squid cache manager; and unauthenticated Jupyter, kubelet, etcd, Consul,
+  Nomad, and Prometheus data APIs.
 
 CVE detection probes currently cover CVE-2012-1823, CVE-2014-8361,
 CVE-2015-2051, CVE-2017-9841, CVE-2018-10561, CVE-2018-13379, CVE-2018-20062,
-CVE-2019-9082, CVE-2019-17558, CVE-2020-3452, CVE-2020-8515, CVE-2020-14882,
-CVE-2020-25078, CVE-2021-34473, CVE-2021-35587, CVE-2021-36260, CVE-2021-43798,
+CVE-2019-9082, CVE-2019-17558, CVE-2020-3452, CVE-2020-5902, CVE-2020-8515,
+CVE-2020-14882, CVE-2020-25078, CVE-2021-41773, CVE-2021-34473,
+CVE-2021-35587, CVE-2021-36260, CVE-2021-43798,
 CVE-2023-1389, CVE-2023-20198, and CVE-2024-4577.
 
 ## Usage
