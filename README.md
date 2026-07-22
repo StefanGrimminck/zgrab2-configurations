@@ -40,23 +40,23 @@ Products and exposures, in `service-discovery/` and `vulnerabilities/`:
   SonicWall, Ivanti Connect Secure, Citrix Gateway, F5 BIG-IP, Palo Alto
   GlobalProtect, Check Point.
 - Web platforms and CMS: WordPress, Joomla, Drupal, Magento, Atlassian
-  Confluence, GitLab, phpMyAdmin, Adminer, Next.js.
+  Confluence, GitLab, phpMyAdmin, and Adminer.
 - Databases, caches, and search: MongoDB, Redis, Elasticsearch, CouchDB,
   Couchbase, ClickHouse, memcached, InfluxDB, Solr, Neo4j, Riak, Druid.
 - Additional data, search, and AI services: CockroachDB, CrateDB, QuestDB,
-  Trino, Apache Pinot, YugabyteDB, Meilisearch, Typesense, Qdrant, Milvus,
+  YugabyteDB, Meilisearch, Typesense, Qdrant, Milvus,
   Weaviate, Chroma, Marqo, Vespa, and LocalStack.
 - Containers, orchestration, and secrets: Docker Engine API, Docker Registry,
   Harbor, Kubernetes API server, kubelet, Portainer, Nomad, etcd, Consul,
-  HashiCorp Vault, Rancher, Argo Workflows, AWX, Dapr, and Coolify.
+  HashiCorp Vault, Argo Workflows, AWX, and Dapr.
 - Proxies, storage, and infrastructure management: Caddy, Traefik, Envoy,
   HAProxy, Kong, SeaweedFS, Proxmox VE, OpenStack Keystone, Webmin, Cockpit,
   and pgAdmin.
-- CI/CD and developer surfaces: Jenkins, TeamCity, Argo CD, Spring Boot
-  Actuator, Swagger and OpenAPI, GraphQL, Symfony, Laravel, Gitea, Drone,
-  Woodpecker, GoCD, SonarQube, Nexus Repository, Artifactory, and code-server.
-- Monitoring, dashboards, and messaging: Grafana, Prometheus, Kibana, Zabbix,
-  Cacti, Netdata, Splunk, Apache Airflow, RabbitMQ, Apache ActiveMQ, NATS,
+- CI/CD and developer surfaces: TeamCity, Spring Boot Actuator, Swagger and
+  OpenAPI, GraphQL, Symfony, Laravel, GoCD, SonarQube, Nexus Repository, and
+  Artifactory.
+- Monitoring, dashboards, and messaging: Prometheus, Kibana, Zabbix, Cacti,
+  Netdata, Splunk, RabbitMQ, Apache ActiveMQ, NATS,
   Apache ZooKeeper, Alertmanager, Loki, Thanos, VictoriaMetrics, Graylog,
   Sentry, Jaeger, Zipkin, SigNoz, Graphite, Apache Pulsar, Kafka Connect,
   Schema Registry, EMQX, and Apache Artemis.
@@ -64,11 +64,10 @@ Products and exposures, in `service-discovery/` and `vulnerabilities/`:
   Keycloak, Nextcloud and ownCloud.
 - Application servers: Oracle WebLogic, GlassFish, Apache Tomcat, Adobe
   ColdFusion, GeoServer, Nacos, Jolokia, WildFly, Hawtio, H2, Apache NiFi,
-  Apache Flink, Apache Storm, Apache OFBiz, and Apache Superset.
+  Apache Flink, Apache Storm, and Apache OFBiz.
 - Identity, collaboration, automation, and web applications: authentik, Dex,
-  Authelia, ZITADEL, Teleport, Ory, Mattermost, n8n, Home Assistant, openHAB,
-  NetBox, Rundeck, Directus, Strapi, Ghost, MediaWiki, Moodle, TYPO3,
-  Shopware, Odoo, ERPNext, Umbraco, Metabase, Hasura, and Guacamole.
+  ZITADEL, Teleport, Ory, Mattermost, n8n, Home Assistant, Rundeck, Directus,
+  Strapi, Ghost, MediaWiki, TYPO3, Shopware, Odoo, Umbraco, and Guacamole.
 - IoT, routers, and cameras: Hikvision, Axis, Realtek, D-Link, TP-Link, DrayTek,
   Dasan GPON, Boa-based routers, QNAP, Technicolor, Google Home.
 - Common exposures: readable Git, Subversion, and Mercurial metadata; `.env`
@@ -159,6 +158,14 @@ commented options in each base file list what the module accepts. Run
 `zgrab2 <module> --help` to confirm the current option names before you rely on
 them, since some have changed across ZGrab2 releases. Boolean options must be
 written as `option=true` rather than as a bare key.
+
+For a product-named discovery probe, the port and request URI together must be
+strongly product-specific. Do not label a generic response from `/`, `/health`,
+`/healthz`, `/login`, or a generic API path as a particular product when it
+could plausibly be another application. ZGrab2 records the response but does
+not enforce body or header assertions from these INI files, so confirm the
+expected response marker in the scan output before treating a result as a
+fingerprint.
 
 ## Responsible use
 
