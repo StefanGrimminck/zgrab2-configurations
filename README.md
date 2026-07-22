@@ -68,7 +68,7 @@ Products and exposures, in `service-discovery/` and `vulnerabilities/`:
   Sentry, Jaeger, Zipkin, SigNoz, Graphite, Apache Pulsar, Kafka Connect,
   Schema Registry, EMQX, and Apache Artemis.
 - Mail, identity, and remote access: Microsoft Exchange, RD Web Access, WinRM,
-  VNC, Keycloak, Nextcloud and ownCloud.
+  VNC, ScreenConnect, Keycloak, Nextcloud and ownCloud.
 - Application servers: Oracle WebLogic, GlassFish, Apache Tomcat, Adobe
   ColdFusion, GeoServer, Nacos, Jolokia, WildFly, Hawtio, H2, Apache NiFi,
   Apache Flink, Apache Storm, and Apache OFBiz.
@@ -116,6 +116,8 @@ specific CVE without executing an exploit.
 | CVE-2021-43798 | Grafana | [`grafana-CVE-2021-43798.ini`](vulnerabilities/exploitation/grafana-CVE-2021-43798.ini) |
 | CVE-2023-1389 | TP-Link Archer AX21 | [`tp-link-CVE-2023-1389.ini`](vulnerabilities/exploitation/tp-link-CVE-2023-1389.ini) |
 | CVE-2023-20198 | Cisco IOS XE Web UI | [`cisco-ios-xe-CVE-2023-20198.ini`](vulnerabilities/exploitation/cisco-ios-xe-CVE-2023-20198.ini) |
+| CVE-2023-49103 | ownCloud graphapi (phpinfo disclosure) | [`owncloud-CVE-2023-49103.ini`](vulnerabilities/exploitation/owncloud-CVE-2023-49103.ini) |
+| CVE-2024-1709 | ConnectWise ScreenConnect | [`screenconnect-CVE-2024-1709.ini`](vulnerabilities/exploitation/screenconnect-CVE-2024-1709.ini) |
 | CVE-2024-4577 | PHP-CGI on Windows (revives CVE-2012-1823) | [`php-cgi-CVE-2024-4577.ini`](vulnerabilities/exploitation/php-cgi-CVE-2024-4577.ini) |
 
 `vulnerabilities/misconfigurations/solr-admin.ini` also targets the entry
