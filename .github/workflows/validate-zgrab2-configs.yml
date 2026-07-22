@@ -1,0 +1,112 @@
+name: Validate ZGrab2 configurations
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Parse every configuration with upstream ZGrab2
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: stable
+
+      - name: Build upstream ZGrab2
+        env:
+          ZGRAB2_SOURCE: ${{ runner.temp }}/zgrab2-source
+        run: |
+          git clone --depth 1 https://github.com/zmap/zgrab2.git "$ZGRAB2_SOURCE"
+          (
+            cd "$ZGRAB2_SOURCE"
+            go build -trimpath -o "${RUNNER_TEMP}/zgrab2" ./cmd/zgrab2
+          )
+
+      - name: Validate all INI files
+        id: validate
+        env:
+          ZGRAB2: ${{ runner.temp }}/zgrab2
+          REPORT_DIR: ${{ runner.temp }}/zgrab2-config-validation
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p "$REPORT_DIR"
+          records="$REPORT_DIR/records.ndjson"
+          tsv="$REPORT_DIR/zgrab2-config-validation.tsv"
+          printf 'path\tstatus\texit_code\tmessage\n' > "$tsv"
+          : > "$records"
+
+          accepted=0
+          rejected=0
+          while IFS= read -r -d '' config_file; do
+            relative_path=${config_file#"$GITHUB_WORKSPACE"/}
+            stderr_file=$(mktemp)
+
+            set +e
+            case "$relative_path" in
+              *trigger-on-port.ini)
+                printf '127.0.0.1,,80\n' | timeout 5s "$ZGRAB2" -s 1 -b /dev/null multiple \
+                  -c "$config_file" -o /dev/null -l /dev/null -m /dev/null \
+                  >/dev/null 2>"$stderr_file"
+                ;;
+              *)
+                printf '127.0.0.1\n' | timeout 5s "$ZGRAB2" -s 1 -b /dev/null multiple \
+                  -c "$config_file" -o /dev/null -l /dev/null -m /dev/null \
+                  >/dev/null 2>"$stderr_file"
+                ;;
+            esac
+            exit_code=$?
+            set -e
+
+            message=$(tr '\n' ' ' < "$stderr_file" | sed 's/[[:space:]][[:space:]]*/ /g; s/^ //; s/ $//')
+            rm -f "$stderr_file"
+            if [[ "$exit_code" -eq 0 ]]; then
+              status=accepted
+              ((accepted += 1))
+            else
+              status=rejected
+              ((rejected += 1))
+            fi
+
+            printf '%s\t%s\t%s\t%s\n' "$relative_path" "$status" "$exit_code" "$message" >> "$tsv"
+            jq -cn \
+              --arg path "$relative_path" \
+              --arg status "$status" \
+              --arg message "$message" \
+              --argjson exit_code "$exit_code" \
+              '{path: $path, status: $status, exit_code: $exit_code, message: $message}' \
+              >> "$records"
+          done < <(find base-configurations service-discovery vulnerabilities -type f -name '*.ini' -print0 | sort -z)
+
+          total=$((accepted + rejected))
+          jq -s \
+            --argjson accepted "$accepted" \
+            --argjson rejected "$rejected" \
+            --argjson total "$total" \
+            '{summary: {total: $total, accepted: $accepted, rejected: $rejected}, results: .}' \
+            "$records" > "$REPORT_DIR/zgrab2-config-validation.json"
+
+          echo "Validated $total configs: $accepted accepted, $rejected rejected."
+          if [[ "$rejected" -ne 0 ]]; then
+            exit 1
+          fi
+
+      - name: Upload validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zgrab2-config-validation
+          path: ${{ runner.temp }}/zgrab2-config-validation/
+          if-no-files-found: error
