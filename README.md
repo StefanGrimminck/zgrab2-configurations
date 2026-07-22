@@ -107,6 +107,14 @@ Scan with a single protocol:
 cat input.txt | zgrab2 multiple -c base-configurations/ssh.ini -o output.txt
 ```
 
+### Continuous validation
+
+The GitHub Actions workflow builds upstream ZGrab2 and loads every INI with
+`zgrab2 multiple` on each push and pull request. It targets loopback only,
+uploads TSV and JSON reports as workflow artifacts, and fails when any
+configuration is rejected. An accepted configuration has parsed and
+initialized successfully; it does not by itself identify a live remote service.
+
 Find open Elasticsearch instances with ZMap, then scan them:
 
 ```bash
@@ -127,10 +135,10 @@ zmap -p 11434 | zgrab2 multiple -c service-discovery/ollama.ini -o output.txt
 
 ### Port-based triggers
 
-To run a module only against hosts where a matching port is supplied, use the
-trigger form from the
-[ZGrab2 multiple-module documentation](https://github.com/zmap/zgrab2#multiple-module-usage).
-Each input line is `ip, hostname, port`, where the IP or the hostname is
+`all_trigger-on-port.ini` uses ZGrab2's per-module `trigger` field. Its
+triggers are port numbers, so put the discovered port in the input CSV's tag
+field (the third field). ZGrab2 runs only the module whose trigger matches that
+tag. Each input line is `ip, hostname, tag`, where the IP or hostname is
 required:
 
 ```
@@ -140,7 +148,7 @@ required:
 ```
 
 ```bash
-cat input.txt | zgrab2 multiple -c base-configurations/all_trigger-on-port.ini -o output.txt --trigger
+cat input.txt | zgrab2 multiple -c base-configurations/all_trigger-on-port.ini -o output.txt
 ```
 
 ## Blocklist
