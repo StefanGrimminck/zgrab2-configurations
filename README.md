@@ -84,9 +84,9 @@ Products and exposures, in `service-discovery/` and `vulnerabilities/`:
   Docker daemons and registries; Spring Actuator `env`, `heapdump`, mappings,
   configuration, log, thread, audit, and session data; Apache `server-status`
   and `server-info`; Go `pprof`; open MongoDB, Redis, memcached, CouchDB and
-  Solr; `phpinfo()`; directory traversal to `/etc/passwd`; Hadoop and YARN;
-  the Squid cache manager; and unauthenticated Jupyter, kubelet, etcd, Consul,
-  Nomad, and Prometheus data APIs.
+  Solr; `phpinfo()`; directory traversal to `/etc/passwd`; a public
+  `Jenkinsfile`; Hadoop and YARN; the Squid cache manager; and unauthenticated
+  Jupyter, kubelet, etcd, Consul, Nomad, and Prometheus data APIs.
 
 ### CVE detection probes
 
@@ -101,12 +101,14 @@ specific CVE without executing an exploit.
 | CVE-2018-10561 | Dasan GPON home routers | [`dasan-gpon-CVE-2018-10561.ini`](vulnerabilities/exploitation/dasan-gpon-CVE-2018-10561.ini) |
 | CVE-2018-13379 | Fortinet FortiOS SSL VPN | [`fortios-CVE-2018-13379.ini`](vulnerabilities/exploitation/fortios-CVE-2018-13379.ini) |
 | CVE-2018-20062 | ThinkPHP `invokefunction` (also CVE-2019-9082) | [`thinkphp-CVE-2018-20062.ini`](vulnerabilities/exploitation/thinkphp-CVE-2018-20062.ini) |
+| CVE-2019-11510 | Pulse Connect Secure / Ivanti Connect Secure SSL VPN | [`pulse-secure-CVE-2019-11510.ini`](vulnerabilities/exploitation/pulse-secure-CVE-2019-11510.ini) |
 | CVE-2019-19781 | Citrix ADC / Citrix Gateway | [`citrix-adc-CVE-2019-19781.ini`](vulnerabilities/exploitation/citrix-adc-CVE-2019-19781.ini) |
 | CVE-2020-3452 | Cisco ASA / Firepower Threat Defense | [`cisco-asa-CVE-2020-3452.ini`](vulnerabilities/exploitation/cisco-asa-CVE-2020-3452.ini) |
 | CVE-2020-5902 | F5 BIG-IP TMUI | [`f5-big-ip-CVE-2020-5902.ini`](vulnerabilities/exploitation/f5-big-ip-CVE-2020-5902.ini) |
 | CVE-2020-8515 | DrayTek Vigor routers | [`draytek-vigor-CVE-2020-8515.ini`](vulnerabilities/exploitation/draytek-vigor-CVE-2020-8515.ini) |
 | CVE-2020-14882 | Oracle WebLogic console | [`oracle-weblogic-CVE-2020-14882.ini`](vulnerabilities/exploitation/oracle-weblogic-CVE-2020-14882.ini) |
 | CVE-2020-25078 | D-Link DCS-2530L / DCS-2670L cameras | [`dlink-dcs-CVE-2020-25078.ini`](vulnerabilities/exploitation/dlink-dcs-CVE-2020-25078.ini) |
+| CVE-2021-26084 | Confluence Server / Data Center (Webwork OGNL injection) | [`confluence-CVE-2021-26084.ini`](vulnerabilities/exploitation/confluence-CVE-2021-26084.ini) |
 | CVE-2021-34473 | Microsoft Exchange (ProxyShell) | [`exchange-proxyshell-CVE-2021-34473.ini`](vulnerabilities/exploitation/exchange-proxyshell-CVE-2021-34473.ini) |
 | CVE-2021-35587 | Oracle Access Manager (Fusion Middleware) | [`oracle-fusion-middleware-CVE-2021-35587.ini`](vulnerabilities/exploitation/oracle-fusion-middleware-CVE-2021-35587.ini) |
 | CVE-2021-36260 | Hikvision camera / NVR | [`hikvision-CVE-2021-36260.ini`](vulnerabilities/exploitation/hikvision-CVE-2021-36260.ini) |
