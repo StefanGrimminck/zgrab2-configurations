@@ -123,6 +123,7 @@ specific CVE without executing an exploit.
 | CVE-2024-1709 | ConnectWise ScreenConnect | [`screenconnect-CVE-2024-1709.ini`](vulnerabilities/exploitation/screenconnect-CVE-2024-1709.ini) |
 | CVE-2024-4577 | PHP-CGI on Windows (revives CVE-2012-1823) | [`php-cgi-CVE-2024-4577.ini`](vulnerabilities/exploitation/php-cgi-CVE-2024-4577.ini) |
 | CVE-2025-31324 | SAP NetWeaver Visual Composer | [`sap-netweaver-CVE-2025-31324.ini`](vulnerabilities/exploitation/sap-netweaver-CVE-2025-31324.ini) |
+| CVE-2026-4020 | Gravity SMTP WordPress plugin (info disclosure) | [`gravity-smtp-CVE-2026-4020.ini`](vulnerabilities/exploitation/gravity-smtp-CVE-2026-4020.ini) |
 
 `vulnerabilities/misconfigurations/solr-admin.ini` also targets the entry
 point for CVE-2019-17558, an unauthenticated Solr admin exposure rather than a
