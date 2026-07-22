@@ -1,13 +1,20 @@
-# ZGrab 2.0 configuration files
+# ZGrab2 configurations
+
+*Honeypot-informed scan configs for [ZGrab2](https://github.com/zmap/zgrab2): service discovery, misconfiguration checks, and CVE detection.*
+
+[![Validate ZGrab2 configurations](https://github.com/StefanGrimminck/zgrab2-configurations/actions/workflows/validate-zgrab2-configs.yml/badge.svg)](https://github.com/StefanGrimminck/zgrab2-configurations/actions/workflows/validate-zgrab2-configs.yml)
+[![GitHub stars](https://img.shields.io/github/stars/StefanGrimminck/zgrab2-configurations?style=flat)](https://github.com/StefanGrimminck/zgrab2-configurations/stargazers)
 
 Configuration files for [ZGrab2](https://github.com/zmap/zgrab2), the
 application-layer scanner from the ZMap project. Each file tells ZGrab2 which
 module to run, on which port, and with which options, so you can point a scan at
 a specific protocol, product, or exposure without writing the flags by hand.
 
-The files under `service-discovery/` and `vulnerabilities/` follow what
-internet-facing honeypots actually receive. The ports, endpoints, and CVEs they
-target are ones seen in live scanning traffic, not a theoretical list. The
+The ports, endpoints, and CVEs targeted under `service-discovery/` and
+`vulnerabilities/` come from live scanning traffic recorded by
+[Honeylabs](https://honeylabs.net), a network of internet-facing honeypots. A
+config gets added here because real scanners were seen requesting exactly that
+port and path, not because it looked interesting on paper. The
 `vulnerabilities/exploitation/` probes are detection-only, covered under
 [Responsible use](#responsible-use).
 
@@ -44,30 +51,31 @@ Products and exposures, in `service-discovery/` and `vulnerabilities/`:
 - Databases, caches, and search: MongoDB, Redis, Elasticsearch, CouchDB,
   Couchbase, ClickHouse, memcached, InfluxDB, Solr, Neo4j, Riak, Druid.
 - Additional data, search, and AI services: CockroachDB, CrateDB, QuestDB,
-  YugabyteDB, Meilisearch, Typesense, Qdrant, Milvus,
-  Weaviate, Chroma, Marqo, Vespa, and LocalStack.
+  YugabyteDB, Meilisearch, Typesense, Qdrant, Milvus, Weaviate, Chroma, Marqo,
+  Vespa, LocalStack, Ollama, and ComfyUI.
 - Containers, orchestration, and secrets: Docker Engine API, Docker Registry,
   Harbor, Kubernetes API server, kubelet, Portainer, Nomad, etcd, Consul,
   HashiCorp Vault, Argo Workflows, AWX, and Dapr.
 - Proxies, storage, and infrastructure management: Caddy, Traefik, Envoy,
-  HAProxy, Kong, SeaweedFS, Proxmox VE, OpenStack Keystone, Webmin, Cockpit,
-  and pgAdmin.
+  HAProxy, Kong, SeaweedFS, MinIO, Proxmox VE, VMware vCenter, OpenStack
+  Keystone, Webmin, Cockpit, and pgAdmin.
 - CI/CD and developer surfaces: TeamCity, Spring Boot Actuator, Swagger and
   OpenAPI, GraphQL, Symfony, Laravel, GoCD, SonarQube, Nexus Repository, and
   Artifactory.
 - Monitoring, dashboards, and messaging: Prometheus, Kibana, Zabbix, Cacti,
-  Netdata, Splunk, RabbitMQ, Apache ActiveMQ, NATS,
+  Checkmk, OpenNMS, Kiali, Netdata, Splunk, RabbitMQ, Apache ActiveMQ, NATS,
   Apache ZooKeeper, Alertmanager, Loki, Thanos, VictoriaMetrics, Graylog,
   Sentry, Jaeger, Zipkin, SigNoz, Graphite, Apache Pulsar, Kafka Connect,
   Schema Registry, EMQX, and Apache Artemis.
 - Mail, identity, and remote access: Microsoft Exchange, RD Web Access, WinRM,
-  Keycloak, Nextcloud and ownCloud.
+  VNC, Keycloak, Nextcloud and ownCloud.
 - Application servers: Oracle WebLogic, GlassFish, Apache Tomcat, Adobe
   ColdFusion, GeoServer, Nacos, Jolokia, WildFly, Hawtio, H2, Apache NiFi,
   Apache Flink, Apache Storm, and Apache OFBiz.
 - Identity, collaboration, automation, and web applications: authentik, Dex,
-  ZITADEL, Teleport, Ory, Mattermost, n8n, Home Assistant, Rundeck, Directus,
-  Strapi, Ghost, MediaWiki, TYPO3, Shopware, Odoo, Umbraco, and Guacamole.
+  ZITADEL, Teleport, Ory Hydra, Ory Kratos, Mattermost, n8n, Kestra, Home
+  Assistant, Homebridge, Immich, Rundeck, Directus, Strapi, Ghost, MediaWiki,
+  TYPO3, Shopware, Odoo, Umbraco, and Guacamole.
 - IoT, routers, and cameras: Hikvision, Axis, Realtek, D-Link, TP-Link, DrayTek,
   Dasan GPON, Boa-based routers, QNAP, Technicolor, Google Home.
 - Common exposures: readable Git, Subversion, and Mercurial metadata; `.env`
@@ -80,12 +88,37 @@ Products and exposures, in `service-discovery/` and `vulnerabilities/`:
   the Squid cache manager; and unauthenticated Jupyter, kubelet, etcd, Consul,
   Nomad, and Prometheus data APIs.
 
-CVE detection probes currently cover CVE-2012-1823, CVE-2014-8361,
-CVE-2015-2051, CVE-2017-9841, CVE-2018-10561, CVE-2018-13379, CVE-2018-20062,
-CVE-2019-9082, CVE-2019-17558, CVE-2020-3452, CVE-2020-5902, CVE-2020-8515,
-CVE-2020-14882, CVE-2020-25078, CVE-2021-41773, CVE-2021-34473,
-CVE-2021-35587, CVE-2021-36260, CVE-2021-43798,
-CVE-2023-1389, CVE-2023-20198, and CVE-2024-4577.
+### CVE detection probes
+
+Each row is a config under `vulnerabilities/exploitation/` that fingerprints a
+specific CVE without executing an exploit.
+
+| CVE | Product | Config |
+| --- | --- | --- |
+| CVE-2014-8361 | Realtek SDK "miniigd" UPnP (multiple OEM routers) | [`realtek-miniigd-CVE-2014-8361.ini`](vulnerabilities/exploitation/realtek-miniigd-CVE-2014-8361.ini) |
+| CVE-2015-2051 | D-Link HNAP | [`dlink-hnap-CVE-2015-2051.ini`](vulnerabilities/exploitation/dlink-hnap-CVE-2015-2051.ini) |
+| CVE-2017-9841 | PHPUnit `eval-stdin.php` | [`phpunit-CVE-2017-9841.ini`](vulnerabilities/exploitation/phpunit-CVE-2017-9841.ini) |
+| CVE-2018-10561 | Dasan GPON home routers | [`dasan-gpon-CVE-2018-10561.ini`](vulnerabilities/exploitation/dasan-gpon-CVE-2018-10561.ini) |
+| CVE-2018-13379 | Fortinet FortiOS SSL VPN | [`fortios-CVE-2018-13379.ini`](vulnerabilities/exploitation/fortios-CVE-2018-13379.ini) |
+| CVE-2018-20062 | ThinkPHP `invokefunction` (also CVE-2019-9082) | [`thinkphp-CVE-2018-20062.ini`](vulnerabilities/exploitation/thinkphp-CVE-2018-20062.ini) |
+| CVE-2019-19781 | Citrix ADC / Citrix Gateway | [`citrix-adc-CVE-2019-19781.ini`](vulnerabilities/exploitation/citrix-adc-CVE-2019-19781.ini) |
+| CVE-2020-3452 | Cisco ASA / Firepower Threat Defense | [`cisco-asa-CVE-2020-3452.ini`](vulnerabilities/exploitation/cisco-asa-CVE-2020-3452.ini) |
+| CVE-2020-5902 | F5 BIG-IP TMUI | [`f5-big-ip-CVE-2020-5902.ini`](vulnerabilities/exploitation/f5-big-ip-CVE-2020-5902.ini) |
+| CVE-2020-8515 | DrayTek Vigor routers | [`draytek-vigor-CVE-2020-8515.ini`](vulnerabilities/exploitation/draytek-vigor-CVE-2020-8515.ini) |
+| CVE-2020-14882 | Oracle WebLogic console | [`oracle-weblogic-CVE-2020-14882.ini`](vulnerabilities/exploitation/oracle-weblogic-CVE-2020-14882.ini) |
+| CVE-2020-25078 | D-Link DCS-2530L / DCS-2670L cameras | [`dlink-dcs-CVE-2020-25078.ini`](vulnerabilities/exploitation/dlink-dcs-CVE-2020-25078.ini) |
+| CVE-2021-34473 | Microsoft Exchange (ProxyShell) | [`exchange-proxyshell-CVE-2021-34473.ini`](vulnerabilities/exploitation/exchange-proxyshell-CVE-2021-34473.ini) |
+| CVE-2021-35587 | Oracle Access Manager (Fusion Middleware) | [`oracle-fusion-middleware-CVE-2021-35587.ini`](vulnerabilities/exploitation/oracle-fusion-middleware-CVE-2021-35587.ini) |
+| CVE-2021-36260 | Hikvision camera / NVR | [`hikvision-CVE-2021-36260.ini`](vulnerabilities/exploitation/hikvision-CVE-2021-36260.ini) |
+| CVE-2021-41773 | Apache HTTP Server | [`apache-httpd-CVE-2021-41773.ini`](vulnerabilities/exploitation/apache-httpd-CVE-2021-41773.ini) |
+| CVE-2021-43798 | Grafana | [`grafana-CVE-2021-43798.ini`](vulnerabilities/exploitation/grafana-CVE-2021-43798.ini) |
+| CVE-2023-1389 | TP-Link Archer AX21 | [`tp-link-CVE-2023-1389.ini`](vulnerabilities/exploitation/tp-link-CVE-2023-1389.ini) |
+| CVE-2023-20198 | Cisco IOS XE Web UI | [`cisco-ios-xe-CVE-2023-20198.ini`](vulnerabilities/exploitation/cisco-ios-xe-CVE-2023-20198.ini) |
+| CVE-2024-4577 | PHP-CGI on Windows (revives CVE-2012-1823) | [`php-cgi-CVE-2024-4577.ini`](vulnerabilities/exploitation/php-cgi-CVE-2024-4577.ini) |
+
+`vulnerabilities/misconfigurations/solr-admin.ini` also targets the entry
+point for CVE-2019-17558, an unauthenticated Solr admin exposure rather than a
+single CVE-specific request.
 
 ## Usage
 
