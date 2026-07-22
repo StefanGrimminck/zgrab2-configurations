@@ -52,7 +52,7 @@ Products and exposures, in `service-discovery/` and `vulnerabilities/`:
   Couchbase, ClickHouse, memcached, InfluxDB, Solr, Neo4j, Riak, Druid.
 - Additional data, search, and AI services: CockroachDB, CrateDB, QuestDB,
   YugabyteDB, Meilisearch, Typesense, Qdrant, Milvus, Weaviate, Chroma, Marqo,
-  Vespa, LocalStack, Ollama, and ComfyUI.
+  Vespa, LocalStack, Ollama, ComfyUI, Apache Spark, and Anyscale Ray.
 - Containers, orchestration, and secrets: Docker Engine API, Docker Registry,
   Harbor, Kubernetes API server, kubelet, Portainer, Nomad, etcd, Consul,
   HashiCorp Vault, Argo Workflows, AWX, and Dapr.
@@ -87,8 +87,9 @@ Products and exposures, in `service-discovery/` and `vulnerabilities/`:
   configuration, log, thread, audit, and session data; Apache `server-status`
   and `server-info`; Go `pprof`; open MongoDB, Redis, memcached, CouchDB and
   Solr; `phpinfo()`; directory traversal to `/etc/passwd`; a public
-  `Jenkinsfile`; Hadoop and YARN; the Squid cache manager; and unauthenticated
-  Jupyter, kubelet, etcd, Consul, Nomad, and Prometheus data APIs.
+  `Jenkinsfile`; Hadoop and YARN; the Squid cache manager; NTP monlist
+  amplification; and unauthenticated Jupyter, kubelet, etcd, Consul, Nomad, and
+  Prometheus data APIs.
 
 ### CVE detection probes
 
@@ -97,9 +98,11 @@ specific CVE without executing an exploit.
 
 | CVE | Product | Config |
 | --- | --- | --- |
+| CVE-2013-5211 | NTP monlist amplification | [`ntp-monlist-amplification.ini`](vulnerabilities/misconfigurations/ntp-monlist-amplification.ini) |
 | CVE-2014-8361 | Realtek SDK "miniigd" UPnP (multiple OEM routers) | [`realtek-miniigd-CVE-2014-8361.ini`](vulnerabilities/exploitation/realtek-miniigd-CVE-2014-8361.ini) |
 | CVE-2015-2051 | D-Link HNAP | [`dlink-hnap-CVE-2015-2051.ini`](vulnerabilities/exploitation/dlink-hnap-CVE-2015-2051.ini) |
 | CVE-2017-9841 | PHPUnit `eval-stdin.php` | [`phpunit-CVE-2017-9841.ini`](vulnerabilities/exploitation/phpunit-CVE-2017-9841.ini) |
+| CVE-2018-11770 | Apache Spark standalone REST API | [`apache-spark-CVE-2018-11770.ini`](vulnerabilities/exploitation/apache-spark-CVE-2018-11770.ini) |
 | CVE-2018-10561 | Dasan GPON home routers | [`dasan-gpon-CVE-2018-10561.ini`](vulnerabilities/exploitation/dasan-gpon-CVE-2018-10561.ini) |
 | CVE-2018-13379 | Fortinet FortiOS SSL VPN | [`fortios-CVE-2018-13379.ini`](vulnerabilities/exploitation/fortios-CVE-2018-13379.ini) |
 | CVE-2018-20062 | ThinkPHP `invokefunction` (also CVE-2019-9082) | [`thinkphp-CVE-2018-20062.ini`](vulnerabilities/exploitation/thinkphp-CVE-2018-20062.ini) |
@@ -119,6 +122,7 @@ specific CVE without executing an exploit.
 | CVE-2023-1389 | TP-Link Archer AX21 | [`tp-link-CVE-2023-1389.ini`](vulnerabilities/exploitation/tp-link-CVE-2023-1389.ini) |
 | CVE-2023-20198 | Cisco IOS XE Web UI | [`cisco-ios-xe-CVE-2023-20198.ini`](vulnerabilities/exploitation/cisco-ios-xe-CVE-2023-20198.ini) |
 | CVE-2023-38646 | Metabase (pre-auth setup-token) | [`metabase-CVE-2023-38646.ini`](vulnerabilities/exploitation/metabase-CVE-2023-38646.ini) |
+| CVE-2023-48022 | Anyscale Ray dashboard (ShadowRay) | [`ray-dashboard-CVE-2023-48022.ini`](vulnerabilities/exploitation/ray-dashboard-CVE-2023-48022.ini) |
 | CVE-2023-49103 | ownCloud graphapi (phpinfo disclosure) | [`owncloud-CVE-2023-49103.ini`](vulnerabilities/exploitation/owncloud-CVE-2023-49103.ini) |
 | CVE-2024-1709 | ConnectWise ScreenConnect | [`screenconnect-CVE-2024-1709.ini`](vulnerabilities/exploitation/screenconnect-CVE-2024-1709.ini) |
 | CVE-2024-4577 | PHP-CGI on Windows (revives CVE-2012-1823) | [`php-cgi-CVE-2024-4577.ini`](vulnerabilities/exploitation/php-cgi-CVE-2024-4577.ini) |
