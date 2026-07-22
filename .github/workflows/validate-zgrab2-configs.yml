@@ -4,11 +4,64 @@ on:
   pull_request:
   push:
   workflow_dispatch:
+  schedule:
+    # Weekly, Mondays 06:00 UTC. Catches breakage introduced by upstream ZGrab2
+    # changes even when this repository has had no activity.
+    - cron: '0 6 * * 1'
 
 permissions:
   contents: read
 
 jobs:
+  lint:
+    name: Repository conventions
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Enforce repository conventions
+        shell: bash
+        run: |
+          set -uo pipefail
+          fail=0
+          note() { echo "FAIL: $*"; fail=1; }
+
+          probe_files=$(find service-discovery vulnerabilities -type f -name '*.ini')
+
+          # 1. No em-dash, unicode arrows, or curly quotes in docs or configs.
+          if grep -rnP '\x{2014}|\x{2192}|\x{201C}|\x{201D}|\x{2018}|\x{2019}' \
+               README.md CONTRIBUTING.md base-configurations service-discovery vulnerabilities; then
+            note "em-dash, unicode arrow, or curly quote found (use a plain hyphen / straight quote)"
+          fi
+
+          # 2. Every service-discovery / vulnerabilities config starts with a # comment block.
+          for f in $probe_files; do
+            head -n1 "$f" | grep -q '^#' || note "$f: missing leading comment block"
+          done
+
+          # 3. name= is lowercase, digits, and hyphens only (no spaces or capitals).
+          for f in $probe_files; do
+            grep -E '^name=' "$f" | grep -qvE '^name="[a-z0-9-]+"$' && note "$f: name= must be lowercase-hyphen"
+          done
+
+          # 4. name= is unique across all probe configs.
+          dupes=$(grep -h '^name=' $probe_files | sort | uniq -d)
+          [ -n "$dupes" ] && note "duplicate name= values: $dupes"
+
+          # 5. Every exploitation config names its CVE on the first line.
+          for f in vulnerabilities/exploitation/*.ini; do
+            head -n1 "$f" | grep -qE '^# CVE-[0-9]{4}-[0-9]+' || note "$f: first line must name a CVE"
+          done
+
+          if [ "$fail" -ne 0 ]; then
+            echo "Repository convention checks failed."
+            exit 1
+          fi
+          echo "All repository convention checks passed."
+
   validate:
     name: Parse every configuration with upstream ZGrab2
     runs-on: ubuntu-latest

@@ -216,6 +216,9 @@ not enforce body or header assertions from these INI files, so confirm the
 expected response marker in the scan output before treating a result as a
 fingerprint.
 
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full conventions, which CI
+enforces on every push and pull request.
+
 ## Responsible use
 
 These configurations are for authorised security research, asset inventory, and
@@ -224,3 +227,8 @@ vulnerable endpoint or read a single known indicator. They do not execute code
 or send a working exploit. Only scan hosts that you own or have explicit
 permission to test, and keep the blocklist configured so that networks you must
 not touch are excluded.
+
+## License
+
+Licensed under the Apache License 2.0. See [LICENSE](LICENSE). This matches the
+license of [ZGrab2](https://github.com/zmap/zgrab2) itself.
