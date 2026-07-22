@@ -68,16 +68,18 @@ Products and exposures, in `service-discovery/` and `vulnerabilities/`:
   Sentry, Jaeger, Zipkin, SigNoz, Graphite, Apache Pulsar, Kafka Connect,
   Schema Registry, EMQX, and Apache Artemis.
 - Mail, identity, and remote access: Microsoft Exchange, RD Web Access, WinRM,
-  VNC, ScreenConnect, Keycloak, Nextcloud and ownCloud.
+  VNC, ScreenConnect, WSUS, Keycloak, Nextcloud and ownCloud.
 - Application servers: Oracle WebLogic, GlassFish, Apache Tomcat, Adobe
   ColdFusion, GeoServer, Nacos, Jolokia, WildFly, Hawtio, H2, Apache NiFi,
-  Apache Flink, Apache Storm, and Apache OFBiz.
+  Apache Flink, Apache Storm, Apache OFBiz, and SAP NetWeaver.
 - Identity, collaboration, automation, and web applications: authentik, Dex,
   ZITADEL, Teleport, Ory Hydra, Ory Kratos, Mattermost, n8n, Kestra, Home
   Assistant, Homebridge, Immich, Rundeck, Directus, Strapi, Ghost, MediaWiki,
   TYPO3, Shopware, Odoo, Umbraco, and Guacamole.
-- IoT, routers, and cameras: Hikvision, Axis, Realtek, D-Link, TP-Link, DrayTek,
-  Dasan GPON, Boa-based routers, QNAP, Technicolor, Google Home.
+- IoT, routers, cameras, and industrial control: Hikvision, Axis, Realtek,
+  D-Link, TP-Link, DrayTek, Dasan GPON, Boa-based routers, QNAP, Technicolor,
+  Google Home, and Red Lion HMI panels.
+- Healthcare imaging: dcm4chee-arc, an open-source DICOM/PACS archive.
 - Common exposures: readable Git, Subversion, and Mercurial metadata; `.env`
   variants; AWS, Azure, Google Cloud, Docker, Kubernetes, and Terraform
   credentials; public application configuration and database backups; exposed
@@ -119,6 +121,7 @@ specific CVE without executing an exploit.
 | CVE-2023-49103 | ownCloud graphapi (phpinfo disclosure) | [`owncloud-CVE-2023-49103.ini`](vulnerabilities/exploitation/owncloud-CVE-2023-49103.ini) |
 | CVE-2024-1709 | ConnectWise ScreenConnect | [`screenconnect-CVE-2024-1709.ini`](vulnerabilities/exploitation/screenconnect-CVE-2024-1709.ini) |
 | CVE-2024-4577 | PHP-CGI on Windows (revives CVE-2012-1823) | [`php-cgi-CVE-2024-4577.ini`](vulnerabilities/exploitation/php-cgi-CVE-2024-4577.ini) |
+| CVE-2025-31324 | SAP NetWeaver Visual Composer | [`sap-netweaver-CVE-2025-31324.ini`](vulnerabilities/exploitation/sap-netweaver-CVE-2025-31324.ini) |
 
 `vulnerabilities/misconfigurations/solr-admin.ini` also targets the entry
 point for CVE-2019-17558, an unauthenticated Solr admin exposure rather than a
