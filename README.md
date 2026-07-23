@@ -52,7 +52,7 @@ Products and exposures, in `service-discovery/` and `vulnerabilities/`:
   Couchbase, ClickHouse, memcached, InfluxDB, Solr, Neo4j, Riak, Druid.
 - Additional data, search, and AI services: CockroachDB, CrateDB, QuestDB,
   YugabyteDB, Meilisearch, Typesense, Qdrant, Milvus, Weaviate, Chroma, Marqo,
-  Vespa, LocalStack, Ollama, ComfyUI, Apache Spark, and Anyscale Ray.
+  Vespa, LocalStack, Ollama, ComfyUI, Langflow, Apache Spark, and Anyscale Ray.
 - Containers, orchestration, and secrets: Docker Engine API, Docker Registry,
   Harbor, Kubernetes API server, kubelet, Portainer, Nomad, etcd, Consul,
   HashiCorp Vault, Argo Workflows, AWX, and Dapr.
@@ -68,7 +68,8 @@ Products and exposures, in `service-discovery/` and `vulnerabilities/`:
   Sentry, Jaeger, Zipkin, SigNoz, Graphite, Apache Pulsar, Kafka Connect,
   Schema Registry, EMQX, and Apache Artemis.
 - Mail, identity, and remote access: Microsoft Exchange, RD Web Access, WinRM,
-  VNC, ScreenConnect, WSUS, MOVEit Transfer, Keycloak, Nextcloud and ownCloud.
+  VNC, ScreenConnect, WSUS, MOVEit Transfer, CrushFTP, Keycloak, Nextcloud and
+  ownCloud.
 - Application servers: Oracle WebLogic, GlassFish, Apache Tomcat, Adobe
   ColdFusion, GeoServer, Nacos, Jolokia, WildFly, Hawtio, H2, Apache NiFi,
   Apache Flink, Apache Storm, Apache OFBiz, and SAP NetWeaver.
@@ -127,6 +128,7 @@ specific CVE without executing an exploit.
 | CVE-2024-1709 | ConnectWise ScreenConnect | [`screenconnect-CVE-2024-1709.ini`](vulnerabilities/exploitation/screenconnect-CVE-2024-1709.ini) |
 | CVE-2024-4577 | PHP-CGI on Windows (revives CVE-2012-1823) | [`php-cgi-CVE-2024-4577.ini`](vulnerabilities/exploitation/php-cgi-CVE-2024-4577.ini) |
 | CVE-2025-31324 | SAP NetWeaver Visual Composer | [`sap-netweaver-CVE-2025-31324.ini`](vulnerabilities/exploitation/sap-netweaver-CVE-2025-31324.ini) |
+| CVE-2025-53770 | Microsoft SharePoint (ToolShell) | [`sharepoint-toolshell-CVE-2025-53770.ini`](vulnerabilities/exploitation/sharepoint-toolshell-CVE-2025-53770.ini) |
 | CVE-2026-4020 | Gravity SMTP WordPress plugin (info disclosure) | [`gravity-smtp-CVE-2026-4020.ini`](vulnerabilities/exploitation/gravity-smtp-CVE-2026-4020.ini) |
 
 `vulnerabilities/misconfigurations/solr-admin.ini` also targets the entry
