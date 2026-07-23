@@ -68,8 +68,8 @@ Products and exposures, in `service-discovery/` and `vulnerabilities/`:
   Sentry, Jaeger, Zipkin, SigNoz, Graphite, Apache Pulsar, Kafka Connect,
   Schema Registry, EMQX, and Apache Artemis.
 - Mail, identity, and remote access: Microsoft Exchange, RD Web Access, WinRM,
-  VNC, ScreenConnect, WSUS, MOVEit Transfer, CrushFTP, Keycloak, Nextcloud and
-  ownCloud.
+  SQL Server Reporting Services, VNC, ScreenConnect, WSUS, MOVEit Transfer,
+  CrushFTP, Keycloak, Nextcloud and ownCloud.
 - Application servers: Oracle WebLogic, GlassFish, Apache Tomcat, Adobe
   ColdFusion, GeoServer, Nacos, Jolokia, WildFly, Hawtio, H2, Apache NiFi,
   Apache Flink, Apache Storm, Apache OFBiz, and SAP NetWeaver.
